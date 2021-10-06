@@ -1,5 +1,10 @@
 ## Getting started
 
+Install with npm using:
+```
+npm i @relevanceai/instant-relevance
+```
+
 ### Javascript support, using [instantsearch.js](https://github.com/algolia/instantsearch.js)
 
 ```javascript
@@ -18,6 +23,9 @@ search.start();
 ```
 
 ### React support, [react-instantsearch](https://github.com/algolia/react-instantsearch)
+
+### React movies [codesandbox demo](https://codesandbox.io/s/instant-relevance-react-movies-rvxcj?file=/src/App.js)
+
 
 ```jsx harmony
 import React from "react";
@@ -41,6 +49,8 @@ const App = () => (
 
 ### Vue support with [vue-instantsearch](https://github.com/algolia/vue-instantsearch)
 
+### Vue ecommerce [codesandbox demo](https://codesandbox.io/s/instant-relevance-vue-ecommerce-w3q8g)
+
 ```vue
 <template>
   <ais-instant-search :search-client="searchClient" index-name="1000-movies">
@@ -54,6 +64,8 @@ const App = () => (
 </template>
 
 <script>
+
+import { instantRelevanceSearch } from '@relevanceai/instant-relevance';
 
 export default {
   data() {

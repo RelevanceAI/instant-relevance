@@ -495,7 +495,7 @@ import ClearRefinements from './widgets/ClearRefinements.vue';
 import NoResults from './widgets/NoResults.vue';
 import { formatNumber } from './utils';
 import getRouting from './routing';
-import {instantRelevanceSearch} from '../../../build';
+import {instantRelevanceSearch} from '@relevanceai/instant-relevance';
 
 import './Theme.css';
 import './App.css';

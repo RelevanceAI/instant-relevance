@@ -13,7 +13,7 @@ import {
 } from 'react-instantsearch-dom';
 import withURLSync from './URLSync';
 import './App.css';
-import {instantRelevanceSearch} from '../../../build';
+import {instantRelevanceSearch} from '@relevanceai/instant-relevance';
 
 const searchClient = instantRelevanceSearch({
   username:'dummy-collections',
