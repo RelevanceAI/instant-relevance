@@ -1,8 +1,8 @@
 {
   "name": "@relevanceai/instant-relevance",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
   "types": "build/index.d.ts",
   "files": ["build/**/*"],
   "scripts": {
