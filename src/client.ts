@@ -111,10 +111,10 @@ function TransformSimpleSearchResult(res:SimpleSearchPostOutput,context:context)
     // TODO point at correct api
   };
 }
-const SimpleSearchPost = async ({body,dataset_id,username,api_key}:{body:SimpleSearchPostInput,dataset_id:string,username:string,api_key:string}) => {
+const SimpleSearchPost = async ({body,dataset_id,username,api_key,endpoint}:{body:SimpleSearchPostInput,dataset_id:string,username:string,api_key:string,endpoint?:string}) => {
   try {
     const start_time = Date.now();
-    const res = await fetch(`https://ingest-api-dev-aueast.relevance.ai/latest/datasets/${dataset_id}/simple_search`,{method:'post',headers:{authorization:`${username}:${api_key}`},body:JSON.stringify(body)});
+    const res = await fetch(`https://${endpoint ?? 'ingest-api-aueast.relevance.ai'}/latest/datasets/${dataset_id}/simple_search`,{method:'post',headers:{authorization:`${username}:${api_key}`},body:JSON.stringify(body)});
     if(!res.ok) {
       const message = `${res.status} ${(await res.text())}`;
       throw new Error(message)
