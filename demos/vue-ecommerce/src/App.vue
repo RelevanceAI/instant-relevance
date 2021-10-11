@@ -237,9 +237,9 @@
             <ais-sort-by
               class="container-option"
               :items="[
-                { value: 'instant_search', label: 'Featured' },
-                { value: 'instant_search_price_asc', label: 'Price ascending' },
-                { value: 'instant_search_price_desc', label: 'Price descending' },
+                { value: 'ecommerce-instantsearch', label: 'Featured' },
+                { value: 'ecommerce-instantsearch/price/asc', label: 'Price ascending' },
+                { value: 'ecommerce-instantsearch/price/desc', label: 'Price descending' },
               ]"
             />
 
@@ -531,21 +531,16 @@ export default {
   data() {
     let indexName = 'ecommerce-instantsearch';
     let searchClient = instantRelevanceSearch({
-      username:'dummy-collections',
+      project:'dummy-collections',
       api_key:'UzdYRktIY0JxNmlvb1NpOFNsenU6VGdTU0s4UjhUR0NsaDdnQTVwUkpKZw',
       options:{
         override:{fieldsToAggregateStats:['rating']},
         indexName,
         vector_fields:[],
-        indexToSortMapping:{'instant_search_price_asc':{'price':'asc'},'instant_search_price_desc':{'price':'desc'}}
+        // indexToSortMapping:{'instant_search_price_asc':{'price':'asc'},'instant_search_price_desc':{'price':'desc'}}
 
       },
     }); 
-    // let indexName = 'instant_search';
-    // let searchClient = algoliasearch(
-    //   'latency',
-    //   '6be0576ff61c053d5f9a3225e2a90f76'
-    // )
     return {
       cx,
       searchClient,

@@ -1,4 +1,5 @@
 // IMPORTANT : [id:string]:any required
+// IMPORTANT : explainRelevance:true required
 export interface SimpleSearchPostInput {
   [id:string]:any
   /**
@@ -6,6 +7,7 @@ export interface SimpleSearchPostInput {
    *     Default behaviour is to search all fields.
    *     Example: ["name","favourite_color"]
    */
+  explainRelevance?:true,
   query?: string;
   queryConfig?: {
     weight?: number;

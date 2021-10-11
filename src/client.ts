@@ -1,9 +1,10 @@
+import fetch from 'cross-fetch';
 import { SimpleSearchPostInput, SimpleSearchPostOutput } from "./simpleSearchTypes";
 import {  InstantRelevanceSearchInstance, InstantSearchInput, InstantSearchOutput, options,context, _highlightResult } from "./types";
 export function instantRelevanceSearch(
-  {username,api_key,options}:
+  {project,api_key,options}:
   {
-  username: string,
+  project: string,
   api_key:string,
   options?:options
 }
@@ -13,7 +14,7 @@ export function instantRelevanceSearch(
       const results =  await Promise.all(requests.map(async r => {
         const context:context = {r,processingTimeMS:10,options: options??{}};
         const simpleSearchPayload = TransformInstantSearchFilters(r,context);
-        const {processingTimeMS,simpleSearchResult} = await SimpleSearchPost({body:simpleSearchPayload,username,api_key,dataset_id:options?.indexName ?? r.indexName});
+        const {processingTimeMS,simpleSearchResult} = await SimpleSearchPost({body:simpleSearchPayload,project,api_key,dataset_id:options?.indexName ?? r.indexName});
         context.processingTimeMS = processingTimeMS;
         const transformedRes = TransformSimpleSearchResult(simpleSearchResult,context);
         return transformedRes;
@@ -48,17 +49,24 @@ function TransformInstantSearchFilters(request:InstantSearchInput,context:contex
   const filters: SimpleSearchPostInput['filters'] = (request?.params?.numericFilters ?? [])
   .concat(request?.params?.facetFilters ?? [])
   .map(transformToRelevanceFilter);
-  const res = {
+  let res:SimpleSearchPostInput = {
     page: request?.params?.page ?? 0,
     pageSize:request?.params?.hitsPerPage ?? 10,
-    query:request.params.query,
-    vectorSearchQuery:(context?.options?.vector_fields??[]).map(field => {return {field}}),
+    query:request?.params?.query,
     fieldsToAggregate:request?.params?.facets??[],
     explainRelevance:true,
     filters,
     ...(context?.options?.override??{}),
   };
+  if (request?.params?.query?.length > 0) res.vectorSearchQuery = (context?.options?.vector_fields??[]).map(field => {return {field}});
+  // index/field/dir
+  const indexSortParts = request.indexName.match(/^(.*)\/(.*)\/(.*)$/);
+  if (indexSortParts) {
+    res.sort = {[indexSortParts[2]]:indexSortParts[3] as 'asc' | 'desc'}
+    request.indexName = indexSortParts[1];
+  }
   if (request.indexName in (context?.options?.indexToSortMapping ?? {})) res.sort = (context?.options?.indexToSortMapping ?? {})[request.indexName];
+  if (context?.options?.beforeSearch) res = context.options.beforeSearch({...res,...context?.options?.override??{}});
   return res;
 
 }
@@ -108,13 +116,12 @@ function TransformSimpleSearchResult(res:SimpleSearchPostOutput,context:context)
     queryAfterRemoval:"",
     hierarchicalFacets:[]
     // TODO hierarchicalFacets queryAfterRemoval exhaustiveFacetsCount params
-    // TODO point at correct api
   };
 }
-const SimpleSearchPost = async ({body,dataset_id,username,api_key,endpoint}:{body:SimpleSearchPostInput,dataset_id:string,username:string,api_key:string,endpoint?:string}) => {
+const SimpleSearchPost = async ({body,dataset_id,project,api_key,endpoint}:{body:SimpleSearchPostInput,dataset_id:string,project:string,api_key:string,endpoint?:string}) => {
   try {
     const start_time = Date.now();
-    const res = await fetch(`https://${endpoint ?? 'ingest-api-aueast.relevance.ai'}/latest/datasets/${dataset_id}/simple_search`,{method:'post',headers:{authorization:`${username}:${api_key}`},body:JSON.stringify(body)});
+    const res = await fetch(`https://${endpoint ?? 'ingest-api-aueast.relevance.ai'}/latest/datasets/${dataset_id}/simple_search`,{method:'post',headers:{authorization:`${project}:${api_key}`},body:JSON.stringify(body)});
     if(!res.ok) {
       const message = `${res.status} ${(await res.text())}`;
       throw new Error(message)
