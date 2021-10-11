@@ -90,6 +90,7 @@ export interface options {
   vector_fields?:string[]
   indexToSortMapping?:{[id:string]:SimpleSearchPostInput['sort']}
   indexName?:string
+  beforeSearch?:(a:SimpleSearchPostInput) => SimpleSearchPostInput
 }
 export interface context {
   r: InstantSearchInput;

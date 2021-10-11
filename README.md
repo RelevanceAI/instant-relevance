@@ -9,10 +9,10 @@ npm i @relevanceai/instant-relevance
 
 ```javascript
 import instantsearch from "instantsearch.js";
-import {instantRelevanceSearch} from "@relevanceai/relevance-instantsearch";
+import {instantRelevanceSearch} from "@relevanceai/instant-relevance";
 
 const searchClient = instantRelevanceSearch({
-  username:'dummy-collections',
+  project:'dummy-collections',
   api_key:'UzdYRktIY0JxNmlvb1NpOFNsenU6VGdTU0s4UjhUR0NsaDdnQTVwUkpKZw'
 });
 const search = instantsearch({
@@ -31,10 +31,10 @@ search.start();
 import React from "react";
 import ReactDOM from "react-dom";
 import { searchbox } from "react-instantsearch-dom";
-import {instantRelevanceSearch} from "@relevanceai/relevance-instantsearch";
+import {instantRelevanceSearch} from "@relevanceai/instant-relevance";
 
 const searchClient = instantRelevanceSearch({
-  username:'dummy-collections',
+  project:'dummy-collections',
   api_key:'UzdYRktIY0JxNmlvb1NpOFNsenU6VGdTU0s4UjhUR0NsaDdnQTVwUkpKZw'
 });
 
@@ -70,7 +70,7 @@ import { instantRelevanceSearch } from '@relevanceai/instant-relevance';
 export default {
   data() {
     const searchClient = instantRelevanceSearch({
-      username:'dummy-collections',
+      project:'dummy-collections',
       api_key:'UzdYRktIY0JxNmlvb1NpOFNsenU6VGdTU0s4UjhUR0NsaDdnQTVwUkpKZw'
     });
     return {
