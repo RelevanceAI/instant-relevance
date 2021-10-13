@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@relevanceai/instant-relevance": "^0.0.1",
+    "@relevanceai/instant-relevance": "^1.0.0",
     "algoliasearch": "^4.0.1",
     "classnames": "2.2.6",
     "instantsearch.js": "^4.5.0",
