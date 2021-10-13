@@ -98,3 +98,7 @@ const searchClient = instantRelevanceSearch({
   }
 })
 ```
+## Limitations
+
+### Node.js / Nuxt.js
+Our output uses es2015 module syntax. Node/Nuxt require CommonJS syntax, so our package will need to be transpiled to work.
