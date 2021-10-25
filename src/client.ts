@@ -54,7 +54,9 @@ function TransformInstantSearchFilters(request:InstantSearchInput,context:contex
     pageSize:request?.params?.hitsPerPage ?? 10,
     query:request?.params?.query,
     fieldsToAggregate:request?.params?.facets??[],
+    fieldsToAggregateStats:request?.params?.facets??[], // this requires cleanPayloadUsingSchema to not error out
     explainRelevance:true,
+    cleanPayloadUsingSchema:true,
     filters,
     ...(context?.options?.override??{}),
   };
