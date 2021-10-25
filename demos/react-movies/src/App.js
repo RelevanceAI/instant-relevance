@@ -19,7 +19,6 @@ const searchClient = instantRelevanceSearch({
   project:'dummy-collections',
   api_key:'UzdYRktIY0JxNmlvb1NpOFNsenU6VGdTU0s4UjhUR0NsaDdnQTVwUkpKZw',
   options:{
-    override:{fieldsToAggregateStats:['rating']},
     vector_fields:[]
   },
 });

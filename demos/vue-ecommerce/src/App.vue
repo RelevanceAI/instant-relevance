@@ -496,6 +496,7 @@ import NoResults from './widgets/NoResults.vue';
 import { formatNumber } from './utils';
 import getRouting from './routing';
 import {instantRelevanceSearch} from '@relevanceai/instant-relevance';
+// import {instantRelevanceSearch} from '../../../build'; // use this to test locally
 
 import './Theme.css';
 import './App.css';
@@ -534,11 +535,9 @@ export default {
       project:'dummy-collections',
       api_key:'UzdYRktIY0JxNmlvb1NpOFNsenU6VGdTU0s4UjhUR0NsaDdnQTVwUkpKZw',
       options:{
-        override:{fieldsToAggregateStats:['rating']},
         indexName,
         vector_fields:[],
         // indexToSortMapping:{'instant_search_price_asc':{'price':'asc'},'instant_search_price_desc':{'price':'desc'}}
-
       },
     }); 
     return {
